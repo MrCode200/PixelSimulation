@@ -13,7 +13,6 @@ class slimy(pygame.sprite.Sprite):
         self.current_sprite = 0
         self.sprite_speed = v.SPRITE_SPEED  # can be changed to 0.3 and deleted in variables
         self.image = self.sprites[self.current_sprite]
-        self.is_animating = False
 
         self.VAR_movement_counter = 0
 
@@ -67,9 +66,6 @@ class slimy(pygame.sprite.Sprite):
         else:
             self.energy -= 0.1 * (self.speed * 2 + self.radius / 40)
 
-    def animate(self):
-        self.is_animating = True
-
     def random_movement(self):
         # Update random number for movement
         if self.VAR_movement_counter == 0:
@@ -94,32 +90,63 @@ class slimy(pygame.sprite.Sprite):
     # Update the sprite currrent picture
     def update(self):
 
-        if self.is_animating == True:
+        self.current_sprite += self.sprite_speed  # self.sprite_speed * self.speed
 
-            self.current_sprite += self.sprite_speed  # self.sprite_speed * self.speed
+        # Check so the current_sprite array isn't bigger than the sprite number 1
+        if self.current_sprite >= len(self.sprites):
+            self.current_sprite = 0
 
-            # Check so the current_sprite array isn't bigger than the sprite number 1
-            if self.current_sprite >= len(self.sprites):
-                self.current_sprite = 0
-                self.is_animating = False
-            else:
-                self.collide()
+        self.collide()
 
-            # load next sprite and call all functions
-            self.image = self.sprites[int(self.current_sprite)]
-            self.binary_fission()
+        # load next sprite and call all functions
+        self.image = self.sprites[int(self.current_sprite)]
+        self.binary_fission()
 
 
-class one_eye_bat(pygame.sprite.Sprite):
+class bat(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__()
 
-        self.image = pygame.image.load("None")
+        self.egg_sprites = sf.create_bat_sprite(True)
+        self.sprites = sf.create_bat_sprite(False)
+        self.current_sprite = 0
+        self.image = self.egg_sprites[int(self.current_sprite)]
+
+        self.hatched = False
+        self.sprite_cycle = 0
+
         self.rect = self.image.get_rect()
         self.rect.topleft = [pos_x, pos_y]
 
     def update(self):
-        pass
+        self.bat_animation()
+
+    def bat_animation(self):
+        #check if bat is hatche every cycle
+        if not self.hatched and self.sprite_cycle == 60:
+            #update sprite img
+            self.image = self.egg_sprites[int(self.current_sprite)]
+            self.current_sprite += 1
+            self.sprite_cycle = 0
+        # if the sprite shows bat has hatched the self.hatched = True
+            if self.current_sprite >= 5:
+                self.hatched = True
+
+        #add to sprite_cycle in context (egg)
+        elif not self.hatched:
+            self.sprite_cycle += 1
+
+        #if the egg hatched create animation
+        elif self.sprite_cycle == 3:
+            self.sprite_cycle = 0
+            self.current_sprite += 1
+
+            if self.current_sprite >= len(self.sprites):
+                self.current_sprite = 0
+
+            self.image = self.sprites[int(self.current_sprite)]
+        else:
+            self.sprite_cycle += 1
 
 
 class food(pygame.sprite.Sprite):

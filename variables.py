@@ -17,13 +17,13 @@ SPRITE_SPEED = 0.3
 SLIMY_VISION_STANDART = 45
 SLIMY_START_ENERGY = 300
 SLIMY_ENERGY_CAP = 400
-SLIMY_MOVING = pygame.USEREVENT + 1
 
 CYCLE_IN_FPS = 0
 CYCLE = 0
 ENERGY_SLIMY = 0
 ENERGY_FOOD = 0
-ENERGY_CONSUMPTION = 0
+ENERGY_REPRODUCTION = 0
+TOTAL_SLIMY = 0
 
 IBF_COLOR = (0, 0, 0)
 
@@ -32,6 +32,7 @@ FONT = pygame.font.SysFont('Grand9K Pixel Regular', 10)
 
 SLIMY_GROUP = pygame.sprite.Group()
 FOOD_GROUP = pygame.sprite.Group()
+BAT_GROUP = pygame.sprite.Group()
 
 DATA_SPEED = []
 DATA_VISION = []
