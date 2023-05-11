@@ -1,14 +1,15 @@
 import pygame
+
 pygame.font.init()
 
 # All Variables
 WIN_WIDTH, WIN_HEIGHT = 1920, 1020
-FPS=120
+FPS = 120
 
-NUM_OF_SLIMY_START = 15 #prefered
-NUM_OF_FOOD_START = 120 #prefered
-INFO_BOARD_ON = True #prefered
-SIMULATION_LVL = 2 #prefered
+NUM_OF_SLIMY_START = 15  # preferred
+NUM_OF_FOOD_START = 120  # preferred
+INFO_BOARD_ON = True  # preferred
+SIMULATION_LVL = 2  # preferred
 
 SLIMY_SPRITE_NUMBER = 14
 
@@ -24,7 +25,7 @@ ENERGY_SLIMY = 0
 ENERGY_FOOD = 0
 ENERGY_CONSUMPTION = 0
 
-IBF_COLOR = (0,0,0)
+IBF_COLOR = (0, 0, 0)
 
 ICON_DNA = pygame.image.load("Assets/DNA.ico")
 FONT = pygame.font.SysFont('Grand9K Pixel Regular', 10)
@@ -35,4 +36,8 @@ FOOD_GROUP = pygame.sprite.Group()
 DATA_SPEED = []
 DATA_VISION = []
 
-#NY #MAGIC
+# NY #MAGIC
+# Infinite:
+# NUM_OF_SLIMY_START = 15  # preferred
+# NUM_OF_FOOD_START = 120  # preferred
+# generate food per cycle 15
