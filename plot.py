@@ -3,24 +3,18 @@ import numpy as np
 import random
 import json
 
+ax = plt.figure().add_subplot(projection='3d')
+
 with open('data.json') as json_file:
     DATA = json.load(json_file)
 
-X = np.array(DATA[0:int(len(DATA) / 2)])
-Y = np.array(DATA[int(len(DATA) / 2):])
-
-print(np.count_nonzero(X == 1))
-print(np.count_nonzero(X == 2))
-print(np.count_nonzero(X == 3))
-print(np.count_nonzero(Y == 45))
-print(np.count_nonzero(Y == 50))
-print(np.count_nonzero(Y == 55))
-print(np.count_nonzero(Y == 60))
-print(np.count_nonzero(Y == 65))
-print(np.count_nonzero(Y == 70))
-print(np.count_nonzero(Y == 75))
+DATA_SECTION = int(len(DATA) / 3)
+print(len(DATA))
 
 
+Z = np.array(DATA[:DATA_SECTION])
+X = np.array(DATA[DATA_SECTION:DATA_SECTION * 2])
+Y = np.array(DATA[DATA_SECTION * 2:])
 
 def bar_plot(x, y):
     plt.xlabel("SPEED")
@@ -29,16 +23,28 @@ def bar_plot(x, y):
     plt.show()
 
 
-def dotted_plot(x, y):
-    plt.xlabel("SPEED")
-    plt.ylabel("VISION_R")
-    plt.scatter(x, y, c='blue')
+def hist_plot():
+    plt.hist2d(Z, X)
+    plt.show()
+    plt.hist2d(Z, Y)
+    plt.show()
+    plt.hist2d(X, Y)
+
+
+def Scatter3d(z, x, y):
+    ax.scatter(x, y, z)
     plt.show()
 
 
-def hist_plot(x, y):
-    pass
+# dotted_plot(Z, X)
+Scatter3d(Z, X, Y)
+hist_plot()
 
+plt.show()
+plt.hist2d(X,X)
+plt.show()
+plt.hist2d(Y,Y)
+plt.show()
+plt.hist2d(Z,Z)
+plt.show()
 
-#bar_plot(X, Y)
-#dotted_plot(X, Y)

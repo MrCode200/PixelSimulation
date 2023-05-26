@@ -26,7 +26,7 @@ else:
 # Create Sprite/Slimy
 sf.generate_slimy(v.NUM_OF_SLIMY_START)
 sf.generate_food(v.NUM_OF_FOOD_START)
-sf.generate_bat(5)
+sf.generate_bat(2)
 
 
 # Main
@@ -46,7 +46,7 @@ def main():
 
                 if event.key == pygame.K_p:
                     with open("data.json", "a") as f:
-                        json.dump(v.DATA_SPEED + v.DATA_VISION, f)
+                        json.dump(v.DATA_CYCLE + v.DATA_SPEED + v.DATA_VISION, f)
                     pygame.quit()
 
         # for num_of_slimy in v.SLIMY_GROUP.sprites():
