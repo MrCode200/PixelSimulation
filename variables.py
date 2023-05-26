@@ -10,7 +10,7 @@ NUM_OF_SLIMY_START = 15  # preferred
 NUM_OF_FOOD_START = 100  # preferred
 INFO_BOARD_ON = True  # preferred
 #VISION_DRAW = False
-SIMULATION_LVL = 1  # preferred
+SIMULATION_LVL = 2  # preferred
 
 SLIMY_SPRITE_NUMBER = 14
 
