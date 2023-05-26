@@ -71,23 +71,28 @@ def generate_slimy(
             new_slimy = cl.slimy(pos_x + random.randrange(-20, 20), pos_y + random.randrange(-20, 20),
                                  SPEED + round(random.uniform(-0.2, 0.2), 3), VISION + round(random.uniform(-1, 1), 3))
 
-        v.DATA_SPEED.append(new_slimy.speed)
-        v.DATA_VISION.append(new_slimy.radius)
-        v.DATA_CYCLE.append(v.CYCLE)
+        v.DATA_SPEED_SLIMY.append(new_slimy.speed)
+        v.DATA_VISION_SLIMY.append(new_slimy.radius)
+        v.DATA_CYCLE_SLIMY.append(v.CYCLE)
 
         v.SLIMY_GROUP.add(new_slimy)
         v.TOTAL_SLIMY += 1
 
 
-def generate_bat(num_generations, pos_x=None, pos_y=None, SPEED=None):
+def generate_bat(num_generations, pos_x=None, pos_y=None, SPEED=None, VISION=None):
     for BAT_ID in range(num_generations):
         if pos_x is None:
             new_bat = cl.bat(random.randint(10, v.WIN_WIDTH), random.randint(0, v.WIN_HEIGHT),
-                             round(random.uniform(2, 4), 3))
+                             round(random.uniform(2, 4), 3), v.BAT_VISION_STANDART + round(random.uniform(0, 35), 3))
         else:
-            new_bat = cl.bat(pos_x, pos_y, SPEED + round(random.uniform(-0.2, 0.2), 3))
+            new_bat = cl.bat(pos_x, pos_y,
+                             SPEED + round(random.uniform(-0.2, 0.2), 3), VISION + round(random.uniform(-1, 1), 3))
+
+        v.DATA_SPEED_BAT.append(new_bat.speed)
+        v.DATA_VISION_BAT.append(new_bat.radius)
+        v.DATA_CYCLE_BAT.append(v.CYCLE)
+
         v.BAT_GROUP.add(new_bat)
-        print(new_bat.rect)
 
 
 def info_board(WIN):

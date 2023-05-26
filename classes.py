@@ -34,19 +34,44 @@ class slimy(pygame.sprite.Sprite):
         # check if food can be eaten with a collidide circle
         food_reach_collide = pygame.sprite.spritecollide(self, v.FOOD_GROUP, True,
                                                          pygame.sprite.collide_circle_ratio(0.2))
+        egg_reach_collide = pygame.sprite.spritecollide(self, v.BAT_GROUP, False,
+                                                         pygame.sprite.collide_circle_ratio(0.2))
+
+
 
         # if vision_collide is empty just do random movement
+        if enemy_collide != []:
+            if not enemy_collide[0].hatched:
 
-        if enemy_collide != [] and self.energy > 65:
-            self.vision_color = (128, 0, 0)
-            if enemy_collide[0].rect.x > self.rect.x and self.rect.midleft[0] < 0:
-                self.rect.x -= self.speed
-            elif self.rect.midright[0] < v.WIN_WIDTH:
-                self.rect.x += self.speed
-            if enemy_collide[0].rect.y > self.rect.y and self.rect.midbottom[1] < 0:
-                self.rect.y -= self.speed
-            elif self.rect.midtop[1] < v.WIN_HEIGHT:
-                self.rect.y -= self.speed
+                #check if egg is eaten
+                if egg_reach_collide != []:
+                    self.energy += egg_reach_collide[0].energy
+                    v.BAT_GROUP.remove(egg_reach_collide[0])
+
+                #if not move towards egg
+                if enemy_collide[0].rect.x > self.rect.x and self.rect.midright[0] < v.WIN_WIDTH:
+                    self.rect.x += self.speed
+                elif self.rect.midleft[0] > 0:
+                    self.rect.x -= self.speed
+                if enemy_collide[0].rect.y > self.rect.y and self.rect.midtop[1] > 0:
+                    self.rect.y += self.speed
+                elif self.rect.midbottom[1] < v.WIN_HEIGHT:
+                    self.rect.y -= self.speed
+                self.vision_color = (0, 100, 0)
+
+            else:
+                #else run away from enemie
+                self.vision_color = (128, 0, 0)
+                if enemy_collide[0].rect.x > self.rect.x and self.rect.midleft[0] < 0:
+                    self.rect.x -= self.speed
+                elif self.rect.midright[0] < v.WIN_WIDTH:
+                    self.rect.x += self.speed
+                if enemy_collide[0].rect.y > self.rect.y and self.rect.midbottom[1] < 0:
+                    self.rect.y -= self.speed
+                elif self.rect.midtop[1] < v.WIN_HEIGHT:
+                    self.rect.y -= self.speed
+
+
 
         elif vision_collide == []:
             self.vision_color = (128, 128, 128)
@@ -76,7 +101,7 @@ class slimy(pygame.sprite.Sprite):
             v.SLIMY_GROUP.remove(self)
         elif self.energy <= 0:
             v.SLIMY_GROUP.remove(self)
-        self.energy -= 0.15 * (self.speed * 2 + self.radius / 20)
+        self.energy -= 0.1 * (self.speed * 2 + self.radius / 20)
 
     def movement(self):
         # Update random number for movement
@@ -116,7 +141,7 @@ class slimy(pygame.sprite.Sprite):
 
 
 class bat(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y, speed):
+    def __init__(self, pos_x, pos_y, speed, vision):
         super().__init__()
 
         self.egg_sprites = sf.create_bat_sprite(True)
@@ -125,8 +150,8 @@ class bat(pygame.sprite.Sprite):
         self.image = self.egg_sprites[int(self.current_sprite)]
 
         self.speed = speed
-        self.energy = 750
-        self.radius = 75
+        self.energy = 425
+        self.radius = vision
         self.movement_counter = 0
 
         self.hatched = False
@@ -207,12 +232,12 @@ class bat(pygame.sprite.Sprite):
             self.rect.y += self.speed
 
     def reproduce(self):
-        if self.energy >= 1250:
-            sf.generate_bat(1, self.rect.x, self.rect.y, self.speed)
-            self.energy -= 1000
+        if self.energy >= 600:
+            sf.generate_bat(1, self.rect.x, self.rect.y, self.speed, self.radius)
+            self.energy -= 300
         elif self.energy <= 0:
             v.BAT_GROUP.remove(self)
-        self.energy -= 0.1*(self.speed+self.radius/20)
+        self.energy -= 0.1*(self.speed+self.radius/15+0.2)
         self.energy = round(self.energy, 2)
 
 
