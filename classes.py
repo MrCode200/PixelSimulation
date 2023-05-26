@@ -150,7 +150,7 @@ class bat(pygame.sprite.Sprite):
             self.current_sprite += 1
             self.sprite_cycle = 0
         # if the sprite shows bat has hatched the self.hatched = True
-            if self.current_sprite >= len(self.sprites):
+            if self.current_sprite >= len(self.egg_sprites):
                 self.hatched = True
 
         #add to sprite_cycle in context (egg)
