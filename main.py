@@ -11,7 +11,7 @@ pygame.display.set_caption("Pixels Life")
 pygame.display.set_icon(v.ICON_DNA)
 clock = pygame.time.Clock()
 
-"""#Input for Simulation
+#Input for Simulation
 print("To set to prefered go to main.py and put in # from line 14 to 24")
 v.NUM_OF_SLIMY_START = int(input("Number of Slimy Simulation starts: "))
 v.NUM_OF_FOOD_START = int(input("Number of food per cycle: "))
@@ -21,7 +21,7 @@ v.INFO_BOARD_ON = input("Info board on? y/n: ")
 if v.INFO_BOARD_ON == "y" or v.INFO_BOARD_ON == "":
     v.INFO_BOARD_ON = True
 else:
-    v.INFO_BOARD_ON = False"""
+    v.INFO_BOARD_ON = False
 
 # Create Sprite/Slimy
 sf.generate_slimy(v.NUM_OF_SLIMY_START)
