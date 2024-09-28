@@ -64,7 +64,8 @@ def scatter3d(cycle, vision, speed):
 
 
 # dotted_plot(Z, X)
-scatter3d(slimy_cycle, slimy_vision, slimy_speed)
-hist_plot(slimy_speed, slimy_vision, slimy_cycle, True)
 scatter3d(bat_cycle, bat_vision, bat_speed)
 hist_plot(bat_speed, bat_vision, bat_cycle, True)
+scatter3d(slimy_cycle, slimy_vision, slimy_speed)
+hist_plot(slimy_speed, slimy_vision, slimy_cycle, True)
+

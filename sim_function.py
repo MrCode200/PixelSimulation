@@ -51,7 +51,7 @@ def create_bat_sprite(egg_sprite):
 
 def generate_food(num_generations):
     for food_ID in range(num_generations):
-        new_food = cl.food(random.randrange(10, v.WIN_WIDTH-10), random.randrange(10, v.WIN_HEIGHT-10))
+        new_food = cl.food(random.randrange(20, v.WIN_WIDTH-20), random.randrange(20, v.WIN_HEIGHT-20))
         v.FOOD_GROUP.add(new_food)
 
 
@@ -83,7 +83,7 @@ def generate_bat(num_generations, pos_x=None, pos_y=None, SPEED=None, VISION=Non
     for BAT_ID in range(num_generations):
         if pos_x is None:
             new_bat = cl.bat(random.randint(10, v.WIN_WIDTH), random.randint(0, v.WIN_HEIGHT),
-                             round(random.uniform(2, 4), 3), v.BAT_VISION_STANDART + round(random.uniform(0, 35), 3))
+                             round(random.uniform(1, 4), 3), v.BAT_VISION_STANDART + round(random.uniform(0, 35), 3))
         else:
             new_bat = cl.bat(pos_x, pos_y,
                              SPEED + round(random.uniform(-0.2, 0.2), 3), VISION + round(random.uniform(-1, 1), 3))
@@ -171,6 +171,7 @@ def draw(WIN):
             pygame.draw.circle(WIN, num_of_slimy.vision_color, num_of_slimy.rect.center, num_of_slimy.radius)
         for num_of_bat in v.BAT_GROUP.sprites():
             pygame.draw.circle(WIN, (0, 200, 0), num_of_bat.rect.center, num_of_bat.radius)
+            
 
     cycle()
     if v.INFO_BOARD_ON == True:

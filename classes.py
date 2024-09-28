@@ -79,9 +79,6 @@ class slimy(pygame.sprite.Sprite):
 
         # else go towards the food
         else:
-            # check if food got eaten
-            if food_reach_collide != []:
-                self.energy += food_reach_collide[0].energy
 
             # move towards food
             if vision_collide[0].rect.x > self.rect.x and self.rect.midright[0] < v.WIN_WIDTH:
@@ -93,6 +90,10 @@ class slimy(pygame.sprite.Sprite):
             elif self.rect.midbottom[1] < v.WIN_HEIGHT:
                 self.rect.y -= self.speed
             self.vision_color = (0, 100, 0)
+
+        # check if food got eaten
+        if food_reach_collide != []:
+            self.energy += food_reach_collide[0].energy
 
     # the Binary Fission of slimes and slime energy monitor
     def binary_fission(self):
@@ -202,13 +203,13 @@ class bat(pygame.sprite.Sprite):
             self.movement()
 
         else:
-            if vision_collide[0].rect.x > self.rect.x:
+            if vision_collide[0].rect.x > self.rect.x and self.rect.midright[0] < v.WIN_WIDTH:
                 self.rect.x += self.speed
-            elif vision_collide[0].rect.x < self.rect.x:
+            elif vision_collide[0].rect.x < self.rect.x and self.rect.midleft[0] > 0:
                 self.rect.x -= self.speed
-            if vision_collide[0].rect.y > self.rect.y:
+            if vision_collide[0].rect.y > self.rect.y and self.rect.midbottom[1] < v.WIN_HEIGHT:
                 self.rect.y += self.speed
-            if vision_collide[0].rect.y < self.rect.y:
+            if vision_collide[0].rect.y < self.rect.y and self.rect.midtop[1] > 0:
                 self.rect.y -= self.speed
 
             if reach_collide != []:
@@ -232,12 +233,12 @@ class bat(pygame.sprite.Sprite):
             self.rect.y += self.speed
 
     def reproduce(self):
-        if self.energy >= 600:
+        if self.energy >= 700:
             sf.generate_bat(1, self.rect.x, self.rect.y, self.speed, self.radius)
             self.energy -= 300
         elif self.energy <= 0:
             v.BAT_GROUP.remove(self)
-        self.energy -= 0.1*(self.speed+self.radius/15+0.2)
+        self.energy -= 0.1*(self.speed+self.radius/15+0.1)
         self.energy = round(self.energy, 2)
 
 

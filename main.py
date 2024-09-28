@@ -26,7 +26,7 @@ else:
 # Create Sprite/Slimy
 sf.generate_slimy(v.NUM_OF_SLIMY_START)
 sf.generate_food(v.NUM_OF_FOOD_START)
-sf.generate_bat(20)
+sf.generate_bat(30)
 
 
 # Main
